@@ -1,0 +1,60 @@
+import math
+
+# Định nghĩa lớp Point
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+# Định nghĩa lớp Rectangle
+class Rectangle:
+    def __init__(self, corner, width, height):
+        self.corner = corner  # góc dưới bên trái (Point)
+        self.width = width
+        self.height = height
+
+# Định nghĩa lớp Circle
+class Circle:
+    def __init__(self, center, radius):
+        self.center = center  # Point
+        self.radius = radius
+
+# Hàm kiểm tra điểm có nằm trong hình tròn không
+def point_in_circle(circle, point):
+    dx = point.x - circle.center.x
+    dy = point.y - circle.center.y
+    distance = math.sqrt(dx**2 + dy**2)
+    return distance <= circle.radius
+
+# Hàm kiểm tra hình chữ nhật có nằm hoàn toàn trong hình tròn không
+def rect_in_circle(circle, rect):
+    # Lấy 4 góc của hình chữ nhật
+    corners = [
+        rect.corner,
+        Point(rect.corner.x + rect.width, rect.corner.y),
+        Point(rect.corner.x, rect.corner.y + rect.height),
+        Point(rect.corner.x + rect.width, rect.corner.y + rect.height)
+    ]
+    # Kiểm tra tất cả các góc đều nằm trong hình tròn
+    return all(point_in_circle(circle, corner) for corner in corners)
+
+# Hàm kiểm tra hình chữ nhật có chồng lấn với hình tròn không
+def rect_circle_overlap(circle, rect):
+    corners = [
+        rect.corner,
+        Point(rect.corner.x + rect.width, rect.corner.y),
+        Point(rect.corner.x, rect.corner.y + rect.height),
+        Point(rect.corner.x + rect.width, rect.corner.y + rect.height)
+    ]
+    # Nếu bất kỳ góc nào nằm trong hình tròn thì coi là chồng lấn
+    return any(point_in_circle(circle, corner) for corner in corners)
+
+# -------------------------------
+# Thử nghiệm
+c = Circle(Point(150, 100), 75)
+p = Point(160, 120)
+r = Rectangle(Point(140, 90), 20, 20)
+
+print("Điểm nằm trong hình tròn:", point_in_circle(c, p))
+print("Hình chữ nhật nằm hoàn toàn trong hình tròn:", rect_in_circle(c, r))
+print("Hình chữ nhật chồng lấn hình tròn:", rect_circle_overlap(c, r))
