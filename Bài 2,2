@@ -1,0 +1,9 @@
+import math
+r = float(input("Nhập bán kính hình cầu:"))
+V = (4/3)*math.pi*r**3
+print("Thể tích hình cầu",V)
+
+a = float(input("Số bản vận chuyển:"))
+S = 3 + (a-1)*0,75
+b = S*(1-0.4)
+print("Tổng chi phí:", b)
