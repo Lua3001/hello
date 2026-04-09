@@ -1,0 +1,12 @@
+a = int (input("Nhap so gio:"))
+b = int (input("Nhap so giay:"))
+c = int (input("Nhap so km:"))
+d = a*60 +b #Doi sang giay
+e = a + b/60 #Doi sang phut
+f = d/3600 #Doi sang gio
+g = c/1.61
+print("Co",d,"giay")
+print ("Co", g , "km trong 1 dam")
+print("Toc do trung binh",g/d,"tren giay")
+print("Toc do trung binh",g/e,"tren phut")
+print("Toc do trung binh",g/f,"tren gio")
