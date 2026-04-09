@@ -1,0 +1,62 @@
+# Lớp cha HangHoa
+class HangHoa:
+    def __init__(self, ma_hang, ten_hang, nha_sx, gia):
+        self.ma_hang = ma_hang
+        self.ten_hang = ten_hang
+        self.nha_sx = nha_sx
+        self.gia = gia
+
+    def xuat_thong_tin(self):
+        print(f"Mã hàng: {self.ma_hang}")
+        print(f"Tên hàng: {self.ten_hang}")
+        print(f"Nhà sản xuất: {self.nha_sx}")
+        print(f"Giá: {self.gia} VND")
+
+# Lớp con HangDienMay
+class HangDienMay(HangHoa):
+    def __init__(self, ma_hang, ten_hang, nha_sx, gia, tg_baohanh, dien_ap, cong_suat):
+        super().__init__(ma_hang, ten_hang, nha_sx, gia)
+        self.tg_baohanh = tg_baohanh
+        self.dien_ap = dien_ap
+        self.cong_suat = cong_suat
+
+    def xuat_thong_tin(self):
+        super().xuat_thong_tin()
+        print(f"Thời gian bảo hành: {self.tg_baohanh} tháng")
+        print(f"Điện áp: {self.dien_ap}V")
+        print(f"Công suất: {self.cong_suat}W")
+
+# Lớp con HangSanhSu
+class HangSanhSu(HangHoa):
+    def __init__(self, ma_hang, ten_hang, nha_sx, gia, loai_nguyenlieu):
+        super().__init__(ma_hang, ten_hang, nha_sx, gia)
+        self.loai_nguyenlieu = loai_nguyenlieu
+
+    def xuat_thong_tin(self):
+        super().xuat_thong_tin()
+        print(f"Loại nguyên liệu: {self.loai_nguyenlieu}")
+
+# Lớp con HangThucPham
+class HangThucPham(HangHoa):
+    def __init__(self, ma_hang, ten_hang, nha_sx, gia, ngay_sx, ngay_hethan):
+        super().__init__(ma_hang, ten_hang, nha_sx, gia)
+        self.ngay_sx = ngay_sx
+        self.ngay_hethan = ngay_hethan
+
+    def xuat_thong_tin(self):
+        super().xuat_thong_tin()
+        print(f"Ngày sản xuất: {self.ngay_sx}")
+        print(f"Ngày hết hạn: {self.ngay_hethan}")
+
+# Tạo đối tượng cho từng loại hàng
+dien_may = HangDienMay("DM01", "Máy giặt", "LG", 8500000, 24, 220, 2000)
+sanh_su = HangSanhSu("SS01", "Bộ chén sứ", "Minh Long", 1200000, "Sứ cao cấp")
+thuc_pham = HangThucPham("TP01", "Sữa tươi", "Vinamilk", 35000, "01/04/2026", "15/04/2026")
+
+# Xuất thông tin
+print("=== Hàng điện máy ===")
+dien_may.xuat_thong_tin()
+print("\n=== Hàng sành sứ ===")
+sanh_su.xuat_thong_tin()
+print("\n=== Hàng thực phẩm ===")
+thuc_pham.xuat_thong_tin()
