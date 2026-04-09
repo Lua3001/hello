@@ -1,0 +1,9 @@
+import time
+current_time = time.time()
+days_since_epoch = int(current_time // (24 * 3600))
+seconds_today = int(current_time % (24 * 3600))
+gio = seconds_today // 3600
+phut = (seconds_today % 3600) // 60
+giay = seconds_today % 60
+print("Thời gian hiện tại (GMT): {:02d}:{:02d}:{:02d}".format(gio, phut, giay))
+print("Số ngày kể từ epoch:", days_since_epoch)
