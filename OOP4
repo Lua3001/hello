@@ -1,0 +1,54 @@
+import copy
+
+class Point:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return f"Point({self.x}, {self.y})"
+
+
+class LineSegment:
+    __d1: Point
+    __d2: Point
+
+    def __init__(self, *args):
+        if len(args) == 0:
+            self.__d1 = Point(8, 5)
+            self.__d2 = Point(1, 0)
+        elif len(args) == 2 and isinstance(args[0], Point) and isinstance(args[1], Point):
+            self.__d1 = args[0]
+            self.__d2 = args[1]
+        elif len(args) == 4 and all(isinstance(a, int) for a in args):
+            self.__d1 = Point(args[0], args[1])
+            self.__d2 = Point(args[2], args[3])
+        elif len(args) == 1 and isinstance(args[0], LineSegment):
+            self.__d1 = copy.deepcopy(args[0].__d1)
+            self.__d2 = copy.deepcopy(args[0].__d2)
+        else:
+            raise ValueError("Tham số không hợp lệ cho LineSegment")
+
+    def __repr__(self):
+        return f"LineSegment({self.__d1}, {self.__d2})"
+
+    def get_d1(self):
+        return self.__d1
+
+    def get_d2(self):
+        return self.__d2
+
+
+ls1 = LineSegment()
+print("Mặc định:", ls1)
+
+p1 = Point(2, 3)
+p2 = Point(4, 6)
+ls2 = LineSegment(p1, p2)
+print("Với Point:", ls2)
+
+ls3 = LineSegment(0, 0, 5, 5)
+print("Với 4 số nguyên:", ls3)
+
+ls4 = LineSegment(ls3)
+print("Sao chép:", ls4)
