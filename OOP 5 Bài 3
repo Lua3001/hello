@@ -1,0 +1,100 @@
+#Một đơn vị sản xuất gồm có các cán bộ là công nhân, kỹ sư, nhân viên.
+#Mỗi cán bộ cần quản lý các dữ liệu: Họ tên, tuổi, giới tính (nam, nữ,
+#khác), địa chỉ.
+#• Cấp công nhân sẽ có thêm các thuộc tính riêng: Bậc (1 đến 10).
+#• Cấp kỹ sư có thuộc tính riêng: Nghành đào tạo.
+#• Các nhân viên có thuộc tính riêng: công việc.
+
+#êu cầu 1: Xây dựng các lớp CongNhan, KySu, NhanVien kế thừa từ
+#lớp CanBo.
+
+#Yêu cầu 2: Xây dựng lớp QLCB(quản lý cán bộ) cài đặt các phương
+#thức thực hiện các chức năng sau:
+#• Thêm mới cán bộ.
+#• Tìm kiếm theo họ tên.
+#• Hiển thị thông tin về danh sách các cán bộ.
+#• Thoát khỏi chương trình.
+class CanBo:
+    def __init__(self,ho_ten, tuoi, gioi_tinh, dia_chi):
+        self.HoTen = ho_ten
+        self.Tuoi = tuoi
+        self.GioiTinh = gioi_tinh
+        self.DiaChi = dia_chi
+    def hien_thi_thong_tin (self):
+        print(f"Họ và tên: {self.ho_ten}")
+        print(f"Tuổi: {self.tuoi}")
+        print(f"Giới tính: {self.gioi_tinh}")
+        print(f"Địa chỉ: {self.dia_chi}")
+class CongNhan(CanBo):
+    def __init__(self,ho_ten, tuoi, gioi_tinh, dia_chi,bac):
+        super().__init__(ho_ten, tuoi, gioi_tinh, dia_chi)
+        self.bac = bac
+    def hien_thi_thong_tin(self):
+        super().hien_thi_thong_tin()
+        print(f"Bậc : self.bac")
+class KySu(CanBo):
+    def __init__(self,ho_ten, tuoi, gioi_tinh, dia_chi,nganh_dao_tao):
+        super().__init__(ho_ten, tuoi, gioi_tinh, dia_chi)
+        self.nganh_dao_tao = nganh_dao_tao
+    def hien_thi_thong_tin(self):
+        super().hien_thi_thong_tin()
+        print(f"Ngành đào tạo : self.nganh_dao_tao")
+class NhanVien(CanBo):
+    def __init__(self,ho_ten, tuoi, gioi_tinh, dia_chi,cong_viec):
+        super().__init__(ho_ten, tuoi, gioi_tinh, dia_chi)
+        self.cong_viec = cong_viec
+    def hien_thi_thong_tin(self):
+        super().hien_thi_thong_tin()
+        print(f"Công việc : self.cong_viec")
+class QLCB:
+    def __init__(self):
+        self.danhsach=[]
+    def them_can_bo(self,CanBo):
+        self.danhsach.append(CanBo)
+    def tim_kiem_thong_tin_theo_ho_ten(self,ho_ten):
+        found = False
+        for CanBo in self.danhsach:
+            if CanBo.ho_ten.lower() == ho_ten.lower():
+                CanBo.hien_thi_thong_tin()
+                found = True
+        if not found:
+            print("Không tìm thấy tên cán bộ: {ho_ten}")
+    def hien_thi_danh_sach(self):
+        for CanBo in self.danhsach:
+            CanBo.hien_thi_thong_tin()
+            print("")        
+def main():
+    qlcb = QLCB()
+    while True:
+        print("=====MENU=====")
+        print("1.Thêm mới cán bộ: ")
+        print("2.Tìm kiếm họ tên:")
+        print("3.Hiển thị thông tin về danh sách các cán bộ:")
+        print("4.Thoát")
+    if chon == 1:
+        loai = input("Nhập loại cán bộ (1-Công nhân, 2-Kỹ sư, 3-Nhân viên")
+        ho_ten = input("Họ và tên:")
+        tuoi = input("Tuổi:")
+        gioi_tinh = input("Giới tính:")
+        dia_chi = input("Địa chỉ:")
+        if loai == "1":
+            bac = int(input("Bậc:"))
+            qlcb.them_can_bo(CongNhan(ho_ten,tuoi,gioi_tinh,dia_chi,bac))
+        elif loai == "2":
+            nganh_dao_tao = int(input("Ngành đào tạo:"))
+            qlcb.them_can_bo(KySu(ho_ten,tuoi,gioi_tinh,dia_chi,nganh_dao_tao))
+        elif loai == "3":
+            bac = int(input("Công việc:"))
+            qlcb.them_can_bo(NhanVien(ho_ten,tuoi,gioi_tinh,dia_chi,cong_viec))
+    elif chon == 2:
+        ten_tim = input("Tên cần tìm:")
+        qlcb.tim_kiem_theo_ho_ten(ten_tim)
+    elif chon == 3:
+        qlcb = hien_thi_danh_sach()
+    elif chon == 4:
+        print("Thoát khỏi chương trình")
+        break
+    else:
+        print("Lựa chọn không hợp lệ")
+if __name__ == "__main__":
+    main()
